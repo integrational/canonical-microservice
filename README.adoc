@@ -8,6 +8,7 @@ Implementations of the same basic, canonical microservice using different progra
 - _Invokes_ a publicly accessibe _REST API_ that requires _authentication_
 - All external calls (REST API invocations, DB access) use client-side _resilience_ approaches: timeout, retry, fallback
 - Publishes _change events_ to a topic, using _Kafka_, but staying broker-independent as much as possible
+- The event publication is described by an _AsyncAPIv2_ definition
 - Loosely follows _Hexagonal Architecture_ and thereby confines framework and technology dependence (Kafka, MongoDB, ...) to "adapters"
 - _Configuration_ via properties, using _encryption_ for sensitive property values
 - Packaged into an as-small-as-possible _Docker_ container
