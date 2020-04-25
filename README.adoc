@@ -16,7 +16,7 @@ Implementations of the same basic, canonical microservice using different progra
 
 == Generic development steps
 
-. Write API spec
+. Write REST API spec
 . Write AsyncAPI spec
 . Create project with latest versions of all dependencies
 . Add unit testing support
