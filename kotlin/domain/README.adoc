@@ -18,7 +18,7 @@ docker run --rm --name gradle -it -v $(pwd):/proj -w /proj gradle:jdk11 gradle w
 ./gradlew init --dsl kotlin
 ----
 +
-. In `build.gradle.kts` upgrade Kotlin and add Gradle wrapper type for future upgrades
+. In `build.gradle.kts` upgrade Kotlin and add Gradle wrapper distribution type for future upgrades
 +
 .build.gradle.kts
 [source,kotlin]
