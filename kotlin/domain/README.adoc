@@ -1,0 +1,29 @@
+= Domain implementation in Kotlin
+
+== Miscellanea
+
+=== Adding a Gradle build
+
+. Add the Gradle Wrapper
++
+[source,bash]
+----
+docker run --rm --name gradle -it -v $(pwd):/proj -w /proj gradle:jdk11 gradle wrapper --gradle-version 6.3 --distribution-type all
+----
++
+. Init Gradle
++
+[source,bash]
+----
+./gradlew init --dsl kotlin
+----
++
+. In `build.gradle.kts` upgrade Kotlin and add Gradle wrapper type for future upgrades
++
+.build.gradle.kts
+[source,kotlin]
+----
+tasks.wrapper {
+	distributionType = Wrapper.DistributionType.ALL
+}
+----

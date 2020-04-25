@@ -20,6 +20,9 @@ interface DomainEntityRepo {
     /** Read and return the persistent representation of the [DomainEntity] with the given [id], or `null`. */
     fun read(id: String): DomainEntity?
 
+    /** Rad and return the persistent representations of all known [DomainEntity] instances. */
+    fun readAll(): List<DomainEntity>
+
     /**
      * Update a persistent representation of the given [DomainEntity], identified by its unique [DomainEntity.id].
      * The `id` of the given [DomainEntity] [e] must therefore be non-`null` or an [IllegalArgumentException] is thrown.
