@@ -22,20 +22,20 @@ Implementations of the same basic, canonical microservice using different progra
 . Add unit testing support
 . Add property configuration support
 . Implement technology-independent "domain" incl. "ports":
-** model
-** domain services
-** application service
-** received event handlers
-** "driven ports" (interfaces) for
-*** repository
-*** invoked REST API
-*** sending events
+.. model
+.. domain services
+.. application service
+.. received event handlers
+.. "driven ports" (interfaces) for
+... repository
+... invoked REST API
+... sending events
 . Implement technology-dependent "adapters":
-** "driving adapters" for
-*** exposed REST API
-*** Kafka event subscription
-** "driven adapters" for
-*** MongoDB repository
-*** REST API invocations
-*** Kafka event publication
+.. "driving adapters" for
+... exposed REST API
+... Kafka event subscription
+.. "driven adapters" for
+... MongoDB repository
+... REST API invocations
+... Kafka event publication
 . Write Dockerfile
