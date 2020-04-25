@@ -1,0 +1,6 @@
+= API Definitions
+
+Definitions of the externally visible APIs of the canonical microservice:
+
+- The REST API exposed by the microservice, as an OpenAPIv3 definition
+- The messages produced and consumed by the microservice, as an AsyncAPIv2 definition

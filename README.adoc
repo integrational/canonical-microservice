@@ -2,13 +2,25 @@
 
 Implementations of the same basic, canonical microservice using different programming languages and different frameworks:
 
-- _Exposes_ a simple _REST API_ over _HTTPS_
-- The Exposed REST API is defined by an _API specification_, ideally using _OpenAPIv3_
+- _Exposes_ a simple _REST API_ over _HTTPS_ requiring _authentication_
+- The exposed REST API is defined by an _API specification_, ideally using _OpenAPIv3_
 - Persists entities in an external _database_, using _MongoDB_, but staying DB-independent as much as possible
 - _Invokes_ a publicly accessibe _REST API_ that requires _authentication_
 - All external calls (REST API invocations, DB access) use client-side _resilience_ approaches: timeout, retry, fallback
-- Publishes _change events_ to a topic, using _Kafka_, but staying broker-independent as much as possible
-- The event publication is described by an _AsyncAPIv2_ definition
+- _Publishes entity change events_ to a topic, using _Kafka_, but staying broker-independent as much as possible
+- _Subscribes to events_ from a topic, using the same broker as it uses for publishing events
+- The event exchanges are described by an _AsyncAPIv2_ definition
 - Loosely follows _Hexagonal Architecture_ and thereby confines framework and technology dependence (Kafka, MongoDB, ...) to "adapters"
 - _Configuration_ via properties, using _encryption_ for sensitive property values
 - Packaged into an as-small-as-possible _Docker_ container
+
+== Generic development steps
+
+. Write API spec
+. Write AsyncAPI spec
+. Create project with latest versions of all dependencies
+. Add unit testing support
+. Add property configuration support
+. Implement technology-independent "domain": model, domain services, application service, "ports" for repository, invoked REST API, event publication
+. Implement technology-dependent "adapters": exposed REST API, repository, REST API invocations, event publication
+. Write Dockerfile
