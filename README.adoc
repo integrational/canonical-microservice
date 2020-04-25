@@ -1,0 +1,13 @@
+= Canonical Microservice
+
+Implementations of the same basic, canonical microservice using different programming languages and different frameworks:
+
+- _Exposes_ a simple _REST API_ over _HTTPS_
+- The Exposed REST API is defined by an _API specification_, ideally using _OpenAPIv3_
+- Persists entities in an external _database_, using _MongoDB_, but staying DB-independent as much as possible
+- _Invokes_ a publicly accessibe _REST API_ that requires _authentication_
+- All external calls (REST API invocations, DB access) use client-side _resilience_ approaches: timeout, retry, fallback
+- Publishes _change events_ to a topic, using _Kafka_, but staying broker-independent as much as possible
+- Loosely follows _Hexagonal Architecture_ and thereby confines framework and technology dependence (Kafka, MongoDB, ...) to "adapters"
+- _Configuration_ via properties, using _encryption_ for sensitive property values
+- Packaged into an as-small-as-possible _Docker_ container
