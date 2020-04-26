@@ -1,4 +1,4 @@
-package org.integrational.canms.kotlin.springcloud.repo.inmemory
+package org.integrational.canms.kotlin.springcloud.repo
 
 import org.integrational.canms.kotlin.domain.model.DomainEntity
 import org.integrational.canms.kotlin.domain.repo.DomainEntityRepo

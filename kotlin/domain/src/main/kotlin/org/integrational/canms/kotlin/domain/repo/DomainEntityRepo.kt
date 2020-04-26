@@ -17,12 +17,6 @@ interface DomainEntityRepo {
      */
     fun create(e: DomainEntity): DomainEntity
 
-    /** Read and return the persistent representation of the [DomainEntity] with the given [id], or `null`. */
-    fun read(id: String): DomainEntity?
-
-    /** Rad and return the persistent representations of all known [DomainEntity] instances. */
-    fun readAll(): List<DomainEntity>
-
     /**
      * Update a persistent representation of the given [DomainEntity], identified by its unique [DomainEntity.id].
      * The `id` of the given [DomainEntity] [e] must therefore be non-`null` or an [IllegalArgumentException] is thrown.
@@ -34,14 +28,20 @@ interface DomainEntityRepo {
      */
     fun update(e: DomainEntity): DomainEntity
 
-    /** Delete and return the persistent representation of the [DomainEntity] with the given [id], or `null`. */
-    fun delete(id: String): DomainEntity?
-
     /**
      * Create or update the persistent representation of the given [DomainEntity], depending on its unique [DomainEntity.id].
      */
     fun createOrUpdate(e: DomainEntity) = if (e.id == null) create(e) else update(e)
 
+    /** Delete and return the persistent representation of the [DomainEntity] with the given [id], or `null`. */
+    fun delete(id: String): DomainEntity?
+
     /** Delete and return the persistent representation of the given [DomainEntity], or `null`. */
     fun delete(e: DomainEntity) = e.id?.let { delete(it) }
+
+    /** Read and return the persistent representation of the [DomainEntity] with the given [id], or `null`. */
+    fun read(id: String): DomainEntity?
+
+    /** Rad and return the persistent representations of all known [DomainEntity] instances. */
+    fun readAll(): List<DomainEntity>
 }

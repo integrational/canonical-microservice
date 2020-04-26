@@ -1,5 +1,7 @@
 package org.integrational.canms.kotlin.domain.service
 
+import org.integrational.canms.kotlin.domain.events.ChangeEventSender
+import org.integrational.canms.kotlin.domain.events.DomainEntityChangeEvent
 import org.integrational.canms.kotlin.domain.model.DomainEntity
 import org.integrational.canms.kotlin.domain.model.DomainValueObject
 import org.integrational.canms.kotlin.domain.repo.DomainEntityRepo
@@ -8,6 +10,11 @@ import kotlin.test.*
 
 
 class ApplicationServiceTest {
+
+    // TODO test side-effects on [ChangeEventSender]
+    private class Sender : ChangeEventSender {
+        override fun send(event: DomainEntityChangeEvent) {}
+    }
 
     private class Repo : DomainEntityRepo {
         private val db = mutableMapOf<String, DomainEntity>()
@@ -36,7 +43,7 @@ class ApplicationServiceTest {
 
     @BeforeTest
     fun init() {
-        asvc = ApplicationServiceImpl(Repo())
+        asvc = ApplicationServiceImpl(Repo(), Sender())
     }
 
     private fun assertSize(size: Int) {
@@ -46,7 +53,7 @@ class ApplicationServiceTest {
     @Test
     fun `create happy path`() {
         assertSize(0)
-        val e1 = asvc.addOrUpdateDomainEntity(de)
+        val e1 = asvc.addOrChangeDomainEntity(de)
         assertSize(1)
         assertNotNull(e1.id)
         assertEquals(de.children[1], e1.children[1])
@@ -56,23 +63,23 @@ class ApplicationServiceTest {
     @Test
     fun `update happy path`() {
         assertSize(0)
-        val e1 = asvc.addOrUpdateDomainEntity(de)
+        val e1 = asvc.addOrChangeDomainEntity(de)
         assertSize(1)
         val e2 = e1.copy(name = "new name")
-        val e3 = asvc.addOrUpdateDomainEntity(e2)
+        val e3 = asvc.addOrChangeDomainEntity(e2)
         assertSize(1)
         assertEquals(e2, e3)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun `update non-existent throws IAE`() {
-        asvc.addOrUpdateDomainEntity(de.copy(id = "non-existent"))
+        asvc.addOrChangeDomainEntity(de.copy(id = "non-existent"))
     }
 
     @Test
     fun `get non-existent returns null`() {
         assertNull(asvc.getDomainEntity("non-existent"))
-        asvc.addOrUpdateDomainEntity(de)
+        asvc.addOrChangeDomainEntity(de)
         assertNull(asvc.getDomainEntity("non-existent"))
     }
 
@@ -80,7 +87,7 @@ class ApplicationServiceTest {
     fun `getAll always returns list`() {
         assertSize(0)
         assertNotNull(asvc.getAllDomainEntities())
-        val e1 = asvc.addOrUpdateDomainEntity(de)
+        val e1 = asvc.addOrChangeDomainEntity(de)
         assertSize(1)
         assertEquals(listOf(e1), asvc.getAllDomainEntities())
     }
@@ -88,13 +95,13 @@ class ApplicationServiceTest {
     @Test
     fun `delete non-existent and existent`() {
         assertSize(0)
-        assertNull(asvc.deleteDomainEntity("non-existent"))
+        assertNull(asvc.removeDomainEntity("non-existent"))
         assertSize(0)
-        val e2 = asvc.addOrUpdateDomainEntity(de)
+        val e2 = asvc.addOrChangeDomainEntity(de)
         assertSize(1)
-        assertNull(asvc.deleteDomainEntity("non-existent"))
+        assertNull(asvc.removeDomainEntity("non-existent"))
         assertSize(1)
-        assertEquals(e2, asvc.deleteDomainEntity(e2.id!!))
+        assertEquals(e2, asvc.removeDomainEntity(e2.id!!))
         assertSize(0)
     }
 }

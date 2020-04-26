@@ -41,7 +41,7 @@ dependencies {
 
     implementation("javax.inject", "javax.inject", "1") // JSR-330: @Inject, @Singleton, @Named, ...
 
-    implementation("org.integrational.canms.kotlin", "domain", "0.1.0")
+    implementation("org.integrational.canms.kotlin", "domain", "0.2.0")
 
     implementation(springCloud("stream"))
 

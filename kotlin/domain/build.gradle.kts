@@ -2,7 +2,7 @@ import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "org.integrational.canms.kotlin"
-version = "0.1.0"
+version = "0.2.0"
 
 val javaVersion = JavaVersion.VERSION_11
 
