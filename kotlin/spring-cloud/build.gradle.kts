@@ -24,6 +24,7 @@ fun springBoot(m: String) = "org.springframework.boot:spring-boot-$m"
 fun springCloud(m: String) = "org.springframework.cloud:spring-cloud-$m"
 
 repositories {
+    mavenLocal() // for domain
     mavenCentral()
 }
 
@@ -39,6 +40,8 @@ dependencies {
     implementation(kotlin("reflect"))
 
     implementation("javax.inject", "javax.inject", "1") // JSR-330: @Inject, @Singleton, @Named, ...
+
+    implementation("org.integrational.canms.kotlin", "domain", "0.1.0")
 
     implementation(springCloud("stream"))
 
