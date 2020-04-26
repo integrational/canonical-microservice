@@ -24,6 +24,6 @@ docker run --rm --name gradle -it -v $(pwd):/proj -w /proj gradle:jdk11 gradle w
 [source,kotlin]
 ----
 tasks.wrapper {
-	distributionType = Wrapper.DistributionType.ALL
+  distributionType = Wrapper.DistributionType.ALL
 }
 ----
